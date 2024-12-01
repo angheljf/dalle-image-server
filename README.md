@@ -2,28 +2,18 @@
 
 Image Generation Server
 
-This is a TypeScript-based MCP server that implements a simple notes system. It demonstrates core MCP concepts by providing:
+This is a TypeScript-based MCP server that generates images using DALL·E 2 based on text descriptions. Ask for the imageUrl with your prompt and size, and the server will return the URL of the generated image.
 
-- Resources representing text notes with URIs and metadata
-- Tools for creating new notes
-- Prompts for generating summaries of notes
+**Note:** This server requires an OpenAI API key to function. You can sign up for an API key at [OpenAI](https://platform.openai.com/).
 
+![DALL·E 2](img/example.png)
+![DALL·E 2](img/example2.png)
 ## Features
 
-### Resources
-- List and access notes via `note://` URIs
-- Each note has a title, content and metadata
-- Plain text mime type for simple content access
-
 ### Tools
-- `create_note` - Create new text notes
-  - Takes title and content as required parameters
-  - Stores note in server state
-
-### Prompts
-- `summarize_notes` - Generate a summary of all stored notes
-  - Includes all note contents as embedded resources
-  - Returns structured prompt for LLM summarization
+- `generate_image` - Generate an image using DALL·E 2 based on a text description
+  - Takes `prompt` as a required parameter
+  - Optional `size` parameter (256x256, 512x512, or 1024x1024)
 
 ## Development
 
@@ -53,7 +43,11 @@ On Windows: `%APPDATA%/Claude/claude_desktop_config.json`
 {
   "mcpServers": {
     "dalle-image-server": {
-      "command": "/path/to/dalle-image-server/build/index.js"
+      "command": "node",
+      "args": ["path/to/your/build/index.js"],
+      "env": {
+        "OPENAI_API_KEY": "your_api_key_here"
+      }
     }
   }
 }
